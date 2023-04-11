@@ -16,3 +16,4 @@ Please make sure to run the below commands on that order (I'll explain what they
 | `npm install`       | Yes! It'll install all the dependencies needed to run this project. (run from the repository's root!) |
 | `npm run websocket` | This will start the WebSocket server to get updates about our esteemed inventory                      |
 | `npx nx serve`      | This will serve the front-end app at [http://localhost:4200/](http://localhost:4200/).                |
+| <img width=200/ />  | _<--- easter egg_                                                                                     |
