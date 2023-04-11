@@ -6,19 +6,20 @@ import {
   CardBody,
   CardHeader,
   Container,
+  FormControl,
+  FormLabel,
   Heading,
+  Select,
   Stack,
   StackDivider,
   Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useNotificationsContext } from '../context/notifications';
 
 export function App() {
-  const [items, setItems] = useState([
-    { store: 'ALDO Store 1', model: 'ADIDAS', inventory: 13 },
-    { store: 'ALDO Store 2', model: 'NIKE', inventory: 29 },
-    { store: 'ALDO Store 3', model: 'PUMA', inventory: 2 },
-  ]);
+  const { notifications } = useNotificationsContext();
+  const [limit, setLimit] = useState(5);
 
   const renderInventoryAlert = ({ inventory, model }) => {
     switch (true) {
@@ -26,7 +27,9 @@ export function App() {
         return (
           <Alert status="error">
             <AlertIcon />
-            You're almost out of stock for <strong>{model}</strong>
+            <Text>
+              You're almost out of stock for <strong>{model}</strong>
+            </Text>
           </Alert>
         );
       }
@@ -34,7 +37,9 @@ export function App() {
         return (
           <Alert status="warning">
             <AlertIcon />
-            Your inventory is runnin low for <strong>{model}</strong>
+            <Text>
+              Your inventory is runnin low for <strong>{model}</strong>
+            </Text>
           </Alert>
         );
 
@@ -48,11 +53,19 @@ export function App() {
       <Card>
         <CardHeader>
           <Heading size="md">Latest Sales</Heading>
+          <FormControl>
+            <FormLabel>Amount to show</FormLabel>
+            <Select onChange={(e) => setLimit(e.target.value)}>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+            </Select>
+          </FormControl>
         </CardHeader>
         <CardBody>
           <Stack divider={<StackDivider />} direction={['column']} spacing="4">
-            {items.map((item) => (
-              <Box key={item.store.replace(' ', '-')}>
+            {notifications.slice(0, limit)?.map((item, index) => (
+              <Box key={index}>
                 <Box mb="2">
                   <Heading size="xs" textTransform="uppercase">
                     {item.store}
