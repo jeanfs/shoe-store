@@ -13,7 +13,7 @@
         "outputPath": "dist/shoe-store",
         "index": "src/index.html",
         "baseHref": "/",
-        "main": "src/main.tsx",
+        "main": "src/main.jsx",
         "tsConfig": "tsconfig.app.json",
         "assets": ["src/favicon.ico", "src/assets"],
         "styles": ["src/styles.css"],
