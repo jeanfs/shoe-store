@@ -1,50 +1,33 @@
 import {
   Alert,
   AlertIcon,
-  Box,
   Card,
   CardBody,
   FormControl,
   FormLabel,
-  Heading,
   Select,
   Stack,
-  StackDivider,
   Switch,
+  Tag,
   Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNotificationsContext } from '../../context/notifications';
+import { INVENTORY_LEVELS } from '../../helpers';
 
 export function NotificationsStack() {
   const { notifications, notificationsPaused, setNotificationsPaused } =
     useNotificationsContext();
   const [limit, setLimit] = useState(5);
 
-  const renderInventoryAlert = ({ inventory, model }) => {
+  const getColorScheme = (inventory) => {
     switch (true) {
-      case inventory < 10: {
-        return (
-          <Alert status="error">
-            <AlertIcon />
-            <Text>
-              You're almost out of stock for <strong>{model}</strong>
-            </Text>
-          </Alert>
-        );
-      }
-      case inventory < 20:
-        return (
-          <Alert status="warning">
-            <AlertIcon />
-            <Text>
-              Your inventory is runnin low for <strong>{model}</strong>
-            </Text>
-          </Alert>
-        );
-
+      case inventory < INVENTORY_LEVELS.low:
+        return 'red';
+      case inventory < INVENTORY_LEVELS.medium:
+        return 'orange';
       default:
-        return null;
+        return 'blackAlpha';
     }
   };
 
@@ -63,11 +46,18 @@ export function NotificationsStack() {
             <option value="15">15</option>
           </Select>
         </FormControl>
-        <FormControl display="flex" alignItems="center">
+        <FormControl
+          display={'flex'}
+          alignItems={'center'}
+          textAlign={'right'}
+          whiteSpace={'nowrap'}
+          w={'auto'}
+        >
           <FormLabel htmlFor="pause-notifications" mb="0">
             Pause notifications
           </FormLabel>
           <Switch
+            size={'sm'}
             colorScheme="teal"
             id="pause-notifications"
             isChecked={notificationsPaused}
@@ -75,39 +65,42 @@ export function NotificationsStack() {
           />
         </FormControl>
       </Stack>
-      <Card>
-        <CardBody>
-          <Stack divider={<StackDivider />} direction={['column']} spacing="4">
-            {notifications.length ? (
-              notifications.slice(0, limit)?.map((item, index) => (
-                <Box key={index}>
-                  <Box mb="2">
-                    <Heading size="xs" textTransform="uppercase">
-                      {item.store}
-                    </Heading>
-                    <Text pt="2" fontSize="sm">
-                      {item.model}
-                      {' - '}
-                      {item.inventory}
-                    </Text>
-                  </Box>
-                  {renderInventoryAlert(item)}
-                </Box>
-              ))
-            ) : (
-              <Alert status="warning">
-                <AlertIcon />
-                <Text>
-                  <strong>No items to display.</strong>
-                  <br />
-                  Make sure the notifications are not paused, and that the
-                  websocket server is running.
+      <Text fontSize={'xs'} textAlign={'right'} mb={'2'}>
+        Showing <strong>{limit}</strong> of{' '}
+        <strong>{notifications.length}</strong> notification(s)
+      </Text>
+      <Stack direction={['column']} spacing="2">
+        {notifications.length ? (
+          notifications.slice(0, limit)?.map((item, index) => (
+            <Card
+              variant={'outline'}
+              key={index}
+              shadow={'none'}
+              size={'md'}
+              borderColor={getColorScheme(item.inventory)}
+            >
+              <CardBody>
+                <Text mb={'1'} fontWeight={'semibold'}>
+                  {item.store} sold a pair of {item.model}
                 </Text>
-              </Alert>
-            )}
-          </Stack>
-        </CardBody>
-      </Card>
+                <Tag colorScheme={getColorScheme(item.inventory)}>
+                  <strong>{item.inventory} item(s)</strong>&nbsp;left.
+                </Tag>
+              </CardBody>
+            </Card>
+          ))
+        ) : (
+          <Alert status="warning">
+            <AlertIcon />
+            <Text>
+              <strong>No items to display.</strong>
+              <br />
+              Make sure the notifications are not paused, and that the websocket
+              server is running.
+            </Text>
+          </Alert>
+        )}
+      </Stack>
     </>
   );
 }

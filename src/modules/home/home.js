@@ -4,21 +4,22 @@ import { NotificationsStack } from '../../components';
 
 export function Home() {
   return (
-    <Container maxW={'6xl'} mt={'77'}>
+    <Container maxW={'6xl'} my={'20'}>
       <Grid
-        templateAreas={`"header header"
-                        "nav main"`}
-        gridTemplateRows={'200px auto'}
+        templateAreas={`"hero notifications"`}
+        gridTemplateRows={'auto'}
         gridTemplateColumns={'50% 1fr'}
         gap={'8'}
+        alignItems={'center'}
       >
         {/**
-         * Header
+         * Illustration
          */}
-        <GridItem area={'header'}>
+        <GridItem area={'hero'}>
           <Heading
             lineHeight={1.1}
             fontWeight={600}
+            mb={'5'}
             fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
           >
             <Text
@@ -42,24 +43,18 @@ export function Home() {
               Check our inventory updates!
             </Text>
           </Heading>
-          <Text color={'gray.500'}>
+          <Text mb={'5'} color={'gray.500'}>
             This is a real time notifications stack, feel free to change the
             configurations below to make it easier for you to follow the sales
             reports.
           </Text>
-        </GridItem>
-
-        {/**
-         * Illustration
-         */}
-        <GridItem area={'nav'}>
           <Team />
         </GridItem>
 
         {/**
          * Notifications
          */}
-        <GridItem area={'main'}>
+        <GridItem area={'notifications'}>
           <NotificationsStack />
         </GridItem>
       </Grid>
