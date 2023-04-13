@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react';
 /**
  * Create the context
  */
-export const NotificationsContext = createContext(null);
+export const NotificationsContext = createContext({});
 
 /**
  * Create the provider with an empty array as initial value

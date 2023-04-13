@@ -67,10 +67,10 @@ export function NotificationsStack() {
       </Stack>
       <Text fontSize={'xs'} textAlign={'right'} mb={'2'}>
         Showing <strong>{limit}</strong> of{' '}
-        <strong>{notifications.length}</strong> notification(s)
+        <strong>{notifications?.length}</strong> notification(s)
       </Text>
       <Stack direction={['column']} spacing="2">
-        {notifications.length ? (
+        {notifications?.length ? (
           notifications.slice(0, limit)?.map((item, index) => (
             <Card
               variant={'outline'}
