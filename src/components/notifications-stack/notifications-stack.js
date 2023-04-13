@@ -27,7 +27,7 @@ export function NotificationsStack() {
       case inventory < INVENTORY_LEVELS.medium:
         return 'orange';
       default:
-        return 'blackAlpha';
+        return 'green';
     }
   };
 

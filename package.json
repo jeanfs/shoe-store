@@ -6,10 +6,11 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "websocket": "websocketd --port=8080 ruby ./src/websocket/inventory.rb"
+    "ws": "websocketd --port=8080 ruby ./src/websocket/inventory.rb"
   },
   "private": true,
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.18",
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
