@@ -1,15 +1,20 @@
 # ShoeStore
 
-This is a playground that uses a websocket to get notifications about the latest sales of a shoe store. A notifications stack was made to give real time updates to the users.
+This is a playground that uses a WebSocket to get notifications about the latest sales of a shoe store. A notifications stack was made to give real-time updates to the users.
 
 ## NX
 
-This project was created using [Nx](https://nx.dev). An incredible tool that helps to create and escalate single or big applications. This is a React Standalone app, but it can easily turn into a monorepo if necessary.
+This project was created using [Nx](https://nx.dev). An incredible tool that helps to create and escalate single or big applications. This is a React Standalone app, but it can easily turn into a mono repo if necessary.
 
 ## Installing everything
 
 Okay, let's get the party started.
-Please make sure to run the below commands on that order (I'll explain what they do in a bit).
+
+First of all, you shall clone this repository, or download a .ZIP copy of it.
+
+`git clone git@github.com:jeanfs/shoe-store.git`
+
+Please make sure to run the below commands in that order.
 
 | Command            | Why?                                                                                                  |
 | ------------------ | ----------------------------------------------------------------------------------------------------- |
